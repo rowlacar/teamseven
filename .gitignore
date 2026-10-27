@@ -1,0 +1,9 @@
+target/
+output/*
+!output/.gitkeep
+data/lookup.csv
+*.class
+.idea/
+*.iml
+.vscode/
+.DS_Store
