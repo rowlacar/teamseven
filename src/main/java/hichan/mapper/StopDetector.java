@@ -1,7 +1,7 @@
 package hichan.mapper;
 
 import hichan.common.ChannelId;
-// import direction class
+import hichan.common.Direction;
 import hichan.common.GpsEntry;
 
 public class StopDetector {
