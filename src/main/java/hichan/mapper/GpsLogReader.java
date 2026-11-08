@@ -11,9 +11,7 @@ import java.nio.file.Path;
 public class GpsLogReader implements Closeable {
 
     private final BufferedReader reader;
-
     private final String fileName;
-
     private int lineNumber = 0;
 
     public GpsLogReader(Path logFile)

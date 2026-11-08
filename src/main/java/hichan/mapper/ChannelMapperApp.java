@@ -1,15 +1,10 @@
 package hichan.mapper;
 
-import hichan.common.Config;
-import hichan.mapper.SegmentNotFoundException;
-import hichan.mapper.GpsLogReader;
-import hichan.mapper.GpsLogWriter;
 import hichan.common.ChannelId;
+import hichan.common.Config;
 import hichan.common.Direction;
 import hichan.common.GpsEntry;
 import hichan.common.Location;
-import hichan.mapper.ChannelIdBuilder;
-import hichan.mapper.StopDetector;
 
 import java.nio.file.Path;
 
@@ -120,8 +115,7 @@ public class ChannelMapperApp {
         } catch (Exception ex) {
 
             System.err.println(
-                    "ERROR: "
-                            + ex.getMessage());
+                    "ERROR: " + ex.getMessage());
 
             System.exit(2);
         }

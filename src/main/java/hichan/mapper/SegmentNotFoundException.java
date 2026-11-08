@@ -1,7 +1,7 @@
 package hichan.mapper;
 
 /**
- * Thrown when no matchin* I-90 segment can be found.
+ * Thrown when no matching I-90 segment can be found.
  */
 public class SegmentNotFoundException extends Exception {
 

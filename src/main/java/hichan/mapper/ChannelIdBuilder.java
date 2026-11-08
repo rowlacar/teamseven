@@ -7,6 +7,7 @@ import hichan.common.Config;
 public final class ChannelIdBuilder {
 
     private ChannelIdBuilder() {
+        // Utility class
     }
 
     public static ChannelId build(
