@@ -5,13 +5,10 @@ import hichan.mapper.SegmentNotFoundException;
 import hichan.mapper.GpsLogReader;
 import hichan.mapper.GpsLogWriter;
 import hichan.common.ChannelId;
-// import direction
+import hichan.common.Direction;
 import hichan.common.GpsEntry;
-//import location
+import hichan.common.Location;
 import hichan.mapper.ChannelIdBuilder;
-//import direction tracker
-//import lookup index
-//import segment locater
 import hichan.mapper.StopDetector;
 
 import java.nio.file.Path;
