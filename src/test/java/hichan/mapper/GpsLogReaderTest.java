@@ -12,14 +12,16 @@ public class GpsLogReaderTest {
 
         try {
 
-            Path testFile = Path.of("gps_reader_test.csv");
+            Path testFile =
+                    Path.of("gps_reader_test.csv");
 
             Files.write(
                     testFile,
                     List.of(
-                            "47.6587,-117.4260,200.0,20261108,120000,55.0,8",
-                            "47.7000,-117.5000,205.0,20261108,120100,60.0,7",
-                            "INVALID,DATA,LINE"
+                            "latitude,longitude,elevation,date,time,speed",
+                            "47.6587,-117.4260,200.0,20261108,120000,55.0",
+                            "47.7000,-117.5000,205.0,20261108,120100,60.0",
+                            "BAD,DATA,LINE"
                     )
             );
 
@@ -30,29 +32,35 @@ public class GpsLogReaderTest {
 
             while ((entry = reader.nextEntry()) != null) {
 
-                System.out.println("Line: "
-                        + entry.getLineNumber());
+                System.out.println(
+                        "Line Number: "
+                                + entry.getLineNumber());
 
-                System.out.println("Raw: "
-                        + entry.getRawLine());
+                System.out.println(
+                        "Valid: "
+                                + entry.isValid());
 
-                System.out.println("Latitude: "
-                        + entry.getLatitude());
+                System.out.println(
+                        "Latitude: "
+                                + entry.getLatitude());
 
-                System.out.println("Longitude: "
-                        + entry.getLongitude());
+                System.out.println(
+                        "Longitude: "
+                                + entry.getLongitude());
 
-                System.out.println("Valid: "
-                        + entry.isValid());
+                System.out.println(
+                        "Raw Line: "
+                                + entry.getRawLine());
 
-                System.out.println("--------------------");
+                System.out.println(
+                        "------------------------");
             }
 
             reader.close();
 
-        } catch (Exception e) {
+        } catch (Exception ex) {
 
-            e.printStackTrace();
+            ex.printStackTrace();
         }
     }
 }

@@ -12,7 +12,9 @@ public class GpsLogReader implements Closeable {
 
     private final BufferedReader reader;
     private final String fileName;
+
     private int lineNumber = 0;
+    private boolean headerSkipped = false;
 
     public GpsLogReader(Path logFile)
             throws IOException {
@@ -30,16 +32,21 @@ public class GpsLogReader implements Closeable {
 
             lineNumber++;
 
+            if (!headerSkipped) {
+                headerSkipped = true;
+                continue;
+            }
+
             if (line.isBlank()) {
                 continue;
             }
 
             String[] fields = line.split(",");
 
-            if (fields.length != 7) {
+            if (fields.length != 6) {
 
                 System.err.printf(
-                        "ERROR: %s, line %d: expected 7 fields, found %d%n",
+                        "ERROR: %s, line %d: expected 6 fields, found %d%n",
                         fileName,
                         lineNumber,
                         fields.length);
@@ -66,9 +73,6 @@ public class GpsLogReader implements Closeable {
 
                 double speed =
                         Double.parseDouble(fields[5].trim());
-
-                int satellites =
-                        Integer.parseInt(fields[6].trim());
 
                 if (latitude < -90 || latitude > 90) {
 
@@ -99,7 +103,7 @@ public class GpsLogReader implements Closeable {
                         date,
                         time,
                         speed,
-                        satellites,
+                        0,
                         true);
 
             } catch (NumberFormatException ex) {
