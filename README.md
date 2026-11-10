@@ -184,3 +184,6 @@ WARNING: feature 17: BEGMP > ENDMP, swapping
 
 ## Troubleshooting:
  - If the build fails with ‘release version 17 not supported’, set JAVA_HOME to a Java 17 JDK.
+
+## Known issues
+Sample log format. The sample logs in logs/ are in the phone's raw export format: a header row and 6 fields (date time,latitude,longitude,altitude(m),speed(m/s),sat_used). The Channel Mapper currently expects the 7-field format above, so it marks every line of these files INVALID. When the same data is converted to the 7-field format, both logs map with no invalid lines.
