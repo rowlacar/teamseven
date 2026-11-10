@@ -181,3 +181,6 @@ ERROR: westbound.csv, line 12: expected 7 fields, found 6
 ERROR: westbound.csv, line 40: latitude out of range
 WARNING: feature 17: BEGMP > ENDMP, swapping
 ```
+
+## Troubleshooting:
+ - If the build fails with ‘release version 17 not supported’, set JAVA_HOME to a Java 17 JDK.
