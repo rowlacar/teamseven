@@ -1,36 +1,54 @@
 package hichan.common;
 
-public class ChannelIdTest {
+import org.junit.jupiter.api.Test;
 
-    public static void main(String[] args) {
+import static org.junit.jupiter.api.Assertions.*;
 
-        ChannelId channel1 =
-                new ChannelId(
-                        "I90",
-                        "WA",
-                        Direction.EB,
-                        10);
+class ChannelIdTest {
 
-        ChannelId channel2 =
-                new ChannelId(
-                        "I90",
-                        "ID",
-                        Direction.WB,
-                        30);
+    @Test
+    void channelIdStoresWashingtonEastboundValues() {
 
-        System.out.println("=== Channel ID Test ===");
+        ChannelId channel = new ChannelId(
+                "I90",
+                "WA",
+                Direction.EB,
+                10);
 
-        printChannel(channel1);
-        printChannel(channel2);
+        assertEquals("I90", channel.getHighway());
+        assertEquals("WA", channel.getState());
+        assertEquals(Direction.EB, channel.getDirection());
+        assertEquals(10, channel.getChannel());
+        assertEquals("I90WAEB_10", channel.toString());
     }
 
-    private static void printChannel(ChannelId channel) {
+    @Test
+    void channelIdStoresIdahoWestboundValues() {
 
-        System.out.println("Highway: " + channel.getHighway());
-        System.out.println("State: " + channel.getState());
-        System.out.println("Direction: " + channel.getDirection());
-        System.out.println("Channel: " + channel.getChannel());
-        System.out.println("Channel ID: " + channel);
-        System.out.println();
+        ChannelId channel = new ChannelId(
+                "I90",
+                "ID",
+                Direction.WB,
+                30);
+
+        assertEquals("I90", channel.getHighway());
+        assertEquals("ID", channel.getState());
+        assertEquals(Direction.WB, channel.getDirection());
+        assertEquals(30, channel.getChannel());
+        assertEquals("I90IDWB_30", channel.toString());
+    }
+
+    @Test
+    void toStringProducesCorrectFormat() {
+
+        ChannelId channel = new ChannelId(
+                "I90",
+                "WA",
+                Direction.EB,
+                20);
+
+        assertEquals(
+                "I90WAEB_20",
+                channel.toString());
     }
 }

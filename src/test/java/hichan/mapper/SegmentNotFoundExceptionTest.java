@@ -1,18 +1,36 @@
 package hichan.mapper;
 
-public class SegmentNotFoundExceptionTest {
+import org.junit.jupiter.api.Test;
 
-    public static void main(String[] args) {
+import static org.junit.jupiter.api.Assertions.*;
 
-        try {
+class SegmentNotFoundExceptionTest {
 
-            throw new SegmentNotFoundException(
-                    "No matching segment found.");
+    @Test
+    void exceptionStoresMessage() {
 
-        } catch (SegmentNotFoundException e) {
+        SegmentNotFoundException exception =
+                new SegmentNotFoundException(
+                        "No matching segment found.");
 
-            System.out.println("Exception caught:");
-            System.out.println(e.getMessage());
-        }
+        assertEquals(
+                "No matching segment found.",
+                exception.getMessage());
+    }
+
+    @Test
+    void exceptionCanBeThrown() {
+
+        SegmentNotFoundException exception =
+                assertThrows(
+                        SegmentNotFoundException.class,
+                        () -> {
+                            throw new SegmentNotFoundException(
+                                    "No matching segment found.");
+                        });
+
+        assertEquals(
+                "No matching segment found.",
+                exception.getMessage());
     }
 }

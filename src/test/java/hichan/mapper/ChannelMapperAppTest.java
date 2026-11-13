@@ -1,15 +1,31 @@
 package hichan.mapper;
 
-public class ChannelMapperAppTest {
+import org.junit.jupiter.api.Test;
 
-    public static void main(String[] args) {
+import java.nio.file.Path;
 
-        String[] testArgs = {
-                "gps.csv",
-                "lookup.csv",
-                "output.csv"
-        };
+import static org.junit.jupiter.api.Assertions.*;
 
-        ChannelMapperApp.main(testArgs);
+class ChannelMapperAppTest {
+
+    @Test
+    void acceptsDifferentPaths() {
+
+        assertDoesNotThrow(
+                () -> ChannelMapperApp.validatePaths(
+                        Path.of("gps.csv"),
+                        Path.of("output.csv"))
+        );
+    }
+
+    @Test
+    void rejectsSamePaths() {
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ChannelMapperApp.validatePaths(
+                        Path.of("gps.csv"),
+                        Path.of("gps.csv"))
+        );
     }
 }

@@ -3,10 +3,14 @@ package hichan.mapper;
 import hichan.common.ChannelId;
 import hichan.common.Direction;
 import hichan.common.GpsEntry;
+import org.junit.jupiter.api.Test;
 
-public class StopDetectorTest {
+import static org.junit.jupiter.api.Assertions.*;
 
-    public static void main(String[] args) {
+class StopDetectorTest {
+
+    @Test
+    void repeatedLocationIsDetected() {
 
         StopDetector detector = new StopDetector();
 
@@ -34,6 +38,37 @@ public class StopDetectorTest {
                 8,
                 true);
 
+        ChannelId channelId = new ChannelId(
+                "I90",
+                "WA",
+                Direction.EB,
+                10);
+
+        detector.record(entry1, channelId);
+
+        assertTrue(
+                detector.isRepeat(
+                        entry2,
+                        Direction.EB));
+    }
+
+    @Test
+    void differentLocationIsNotRepeat() {
+
+        StopDetector detector = new StopDetector();
+
+        GpsEntry entry1 = new GpsEntry(
+                1,
+                "raw1",
+                47.6587,
+                -117.4260,
+                200,
+                "20261108",
+                "120000",
+                55,
+                8,
+                true);
+
         GpsEntry entry3 = new GpsEntry(
                 3,
                 "raw3",
@@ -54,20 +89,39 @@ public class StopDetectorTest {
 
         detector.record(entry1, channelId);
 
-        System.out.println(
-                "Entry 2 repeat: "
-                        + detector.isRepeat(
-                        entry2,
-                        Direction.EB));
-
-        System.out.println(
-                "Entry 3 repeat: "
-                        + detector.isRepeat(
+        assertFalse(
+                detector.isRepeat(
                         entry3,
                         Direction.EB));
+    }
 
-        System.out.println(
-                "Last Channel ID: "
-                        + detector.getLastChannelId());
+    @Test
+    void returnsLastRecordedChannelId() {
+
+        StopDetector detector = new StopDetector();
+
+        GpsEntry entry = new GpsEntry(
+                1,
+                "raw1",
+                47.6587,
+                -117.4260,
+                200,
+                "20261108",
+                "120000",
+                55,
+                8,
+                true);
+
+        ChannelId channelId = new ChannelId(
+                "I90",
+                "WA",
+                Direction.EB,
+                10);
+
+        detector.record(entry, channelId);
+
+        assertEquals(
+                channelId,
+                detector.getLastChannelId());
     }
 }

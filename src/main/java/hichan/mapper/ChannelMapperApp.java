@@ -10,6 +10,18 @@ import java.nio.file.Path;
 
 public class ChannelMapperApp {
 
+    static void validatePaths(
+            Path inputPath,
+            Path outputPath) {
+
+        if (inputPath.toAbsolutePath().normalize()
+                .equals(outputPath.toAbsolutePath().normalize())) {
+
+            throw new IllegalArgumentException(
+                    "Output file must be different from input file.");
+        }
+    }
+
     public static void main(String[] args) {
 
         if (args.length != 3) {
@@ -20,13 +32,19 @@ public class ChannelMapperApp {
             System.exit(1);
         }
 
+        Path gpsPath = Path.of(args[0]);
+        Path lookupPath = Path.of(args[1]);
+        Path outputPath = Path.of(args[2]);
+
+        validatePaths(gpsPath, outputPath);
+
         int processed = 0;
         int invalid = 0;
 
         try {
 
             LookupIndex lookupIndex =
-                    LookupIndex.load(Path.of(args[1]));
+                    LookupIndex.load(lookupPath);
 
             SegmentLocator locator =
                     new SegmentLocator(lookupIndex);
@@ -39,10 +57,10 @@ public class ChannelMapperApp {
 
             try (
                     GpsLogReader reader =
-                            new GpsLogReader(Path.of(args[0]));
+                            new GpsLogReader(gpsPath);
 
                     GpsLogWriter writer =
-                            new GpsLogWriter(Path.of(args[2]))
+                            new GpsLogWriter(outputPath)
             ) {
 
                 GpsEntry entry;
