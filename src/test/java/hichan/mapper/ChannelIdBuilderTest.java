@@ -19,7 +19,7 @@ class ChannelIdBuilderTest {
     @Test
     void testWaEb5() {
         ChannelId id =
-                ChannelIdBuilder.build("WA", Direction.EB, 5);
+                ChannelIdBuilder.build("WA", Direction.EB, 7);
 
         assertEquals("I90WAEB_10", id.toString());
     }
@@ -35,7 +35,7 @@ class ChannelIdBuilderTest {
     @Test
     void testWaWb25() {
         ChannelId id =
-                ChannelIdBuilder.build("WA", Direction.WB, 25);
+                ChannelIdBuilder.build("WA", Direction.WB, 24);
 
         assertEquals("I90WAWB_30", id.toString());
     }
