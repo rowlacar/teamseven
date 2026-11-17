@@ -56,23 +56,37 @@ public class GpsLogReader implements Closeable {
 
             try {
 
-                double latitude =
-                        Double.parseDouble(fields[0].trim());
+                String dateTime =
+                        fields[0].trim();
 
-                double longitude =
+                String date;
+                String time;
+
+                String[] dateTimeParts =
+                        dateTime.split("\\s+", 2);
+
+                if (dateTimeParts.length == 2) {
+                    date = dateTimeParts[0];
+                    time = dateTimeParts[1];
+                } else {
+                    date = dateTime;
+                    time = "";
+                }
+
+                double latitude =
                         Double.parseDouble(fields[1].trim());
 
-                double elevation =
+                double longitude =
                         Double.parseDouble(fields[2].trim());
 
-                String date =
-                        fields[3].trim();
-
-                String time =
-                        fields[4].trim();
+                double elevation =
+                        Double.parseDouble(fields[3].trim());
 
                 double speed =
-                        Double.parseDouble(fields[5].trim());
+                        Double.parseDouble(fields[4].trim());
+
+                int satelliteCount =
+                        Integer.parseInt(fields[5].trim());
 
                 if (latitude < -90 || latitude > 90) {
 
@@ -103,7 +117,7 @@ public class GpsLogReader implements Closeable {
                         date,
                         time,
                         speed,
-                        0,
+                        satelliteCount,
                         true);
 
             } catch (NumberFormatException ex) {
